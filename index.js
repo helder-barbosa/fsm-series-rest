@@ -8,11 +8,13 @@ const jwtSecret = 'abc123abc123abc123'
 const bodyParser = require('body-parser')
 mongoose.Promise = global.Promise
 const series = require('./routes/series')
+const users = require('./routes/users')
 const User = require('./models/user')
 
 app.use(bodyParser.json())
 
 app.use('/series', series)
+app.use('/users', users)
 
 app.post('/auth', async (req, res) => {
   const user = req.body
