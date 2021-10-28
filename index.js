@@ -11,8 +11,18 @@ const series = require('./routes/series')
 const users = require('./routes/users')
 const User = require('./models/user')
 
-app.use(bodyParser.json())
+const cors = require('cors')
 
+app.use(bodyParser.json())
+app.use(cors({
+  origin: (origin, callback) => {
+    if (origin === 'http://server2:8081') {
+      callback(null, true)
+    } else {
+      callback(new Error('Not Allowed by CORS'))
+    }
+  }
+}))
 app.use('/series', series)
 app.use('/users', users)
 
